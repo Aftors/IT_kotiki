@@ -1,7 +1,7 @@
 import { EPAGE_TYPE } from '../../../models/models'
 import { EFIELD_TYPE, EFORM_TYPE, IFormConfig } from '../models/models'
 
-export const FORM_CONFIG: Record<EPAGE_TYPE & EFORM_TYPE, IFormConfig> = {
+export const FORM_CONFIG: Record<EPAGE_TYPE | EFORM_TYPE, IFormConfig> = {
   [EPAGE_TYPE.SIGNIN]: {
     submitBtnText: 'Войти',
     fields: [EFIELD_TYPE.LOGIN, EFIELD_TYPE.PASSWORD],

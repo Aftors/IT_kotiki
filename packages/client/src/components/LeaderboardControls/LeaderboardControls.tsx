@@ -98,7 +98,7 @@ export const LeaderboardControls: React.FC<ILeaderboardControlsProps> = ({
           name="value"
           label={<FilterText>Сортировка по:</FilterText>}
           labelCol={{ span: 24 }}>
-          <ControlsSelect options={selectOptions} />
+          <ControlsSelect options={selectOptions} defaultValue="scoreTotal" />
         </Form.Item>
       </Form>
       <Form onFieldsChange={(_, fields) => onFilterChange(fields)}>

@@ -13,7 +13,6 @@ const { Title } = Typography
 
 const mockLeaderobardData: ILeaderboardItem[] = [
   {
-    userPosition: 1,
     avatarPath: '',
     playerName: 'Игрок 1',
     scoreTotal: 143,
@@ -21,7 +20,6 @@ const mockLeaderobardData: ILeaderboardItem[] = [
     id: 1,
   },
   {
-    userPosition: 2,
     avatarPath: '',
     playerName: 'Игрок 2',
     scoreTotal: 114,
@@ -29,7 +27,6 @@ const mockLeaderobardData: ILeaderboardItem[] = [
     id: 2,
   },
   {
-    userPosition: 3,
     avatarPath: '',
     playerName: 'Игрок 3',
     scoreTotal: 165,
@@ -90,16 +87,9 @@ export const LeaderboardPage: React.FC = () => {
         </PageTitle>
         <ContentContainer>
           {data?.map(
-            ({
-              userPosition,
-              avatarPath,
-              playerName,
-              scoreTotal,
-              scoreToday,
-              id,
-            }) => (
+            ({ avatarPath, playerName, scoreTotal, scoreToday, id }, idx) => (
               <LeaderboardItem
-                userPosition={userPosition}
+                userPosition={idx + 1}
                 avatarPath={avatarPath}
                 playerName={playerName}
                 scoreTotal={scoreTotal}

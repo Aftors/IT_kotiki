@@ -74,7 +74,7 @@ const selectOptions = [
     label: 'Имя игрока',
   },
   {
-    value: 'scoreToday',
+    value: 'scoreMax',
     label: 'Рейтинг за текущий день',
   },
 ]
@@ -87,7 +87,9 @@ export const LeaderboardControls: React.FC<ILeaderboardControlsProps> = ({
 }) => {
   return (
     <ControlsDrawer open={isOpen} onClose={onClose} width={328}>
-      <Form onFieldsChange={(_, fields) => onSorterChange(fields)}>
+      <Form
+        onFieldsChange={(_, fields) => onSorterChange(fields)}
+        initialValues={{ value: 'scoreTotal' }}>
         <Form.Item
           name="order"
           label={<FilterBoldText>Возрастание/убывание</FilterBoldText>}
@@ -98,7 +100,7 @@ export const LeaderboardControls: React.FC<ILeaderboardControlsProps> = ({
           name="value"
           label={<FilterText>Сортировка по:</FilterText>}
           labelCol={{ span: 24 }}>
-          <ControlsSelect options={selectOptions} defaultValue="scoreTotal" />
+          <ControlsSelect options={selectOptions} />
         </Form.Item>
       </Form>
       <Form onFieldsChange={(_, fields) => onFilterChange(fields)}>

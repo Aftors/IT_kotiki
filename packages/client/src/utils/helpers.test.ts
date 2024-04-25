@@ -12,13 +12,13 @@ describe('Testing helpers functions', () => {
       expect(JSON.stringify(result)).toBe(JSON.stringify(mockLeaderboardItems))
     })
     it('returns array, sorted by key in ascending order if order parameter is not provided', () => {
-      const key = 'scoreToday'
+      const key = 'scoreMax'
 
       const result = objectSorter(mockLeaderboardItems, key)
       expect(JSON.stringify(result)).toBe(JSON.stringify(expectedNoOrder))
     })
     it('returns array, sorted by key in descending order if order parameter is provided', () => {
-      const key = 'scoreToday'
+      const key = 'scoreMax'
       const descOrder = true
 
       const result = objectSorter(mockLeaderboardItems, key, descOrder)

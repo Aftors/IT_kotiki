@@ -3,6 +3,6 @@ export interface ILeaderboardItem {
   avatarPath: string
   playerName: string
   scoreTotal: number
-  scoreToday: number
+  scoreMax: number
   id: number
 }

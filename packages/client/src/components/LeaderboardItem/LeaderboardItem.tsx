@@ -3,6 +3,7 @@ import { Card } from '../Card/Card'
 import * as palette from '../../constants/color'
 import styled from 'styled-components'
 import { ILeaderboardItem } from './models/models'
+import { imgUrl } from '../../utils/api/consts'
 
 const { Text, Title } = Typography
 
@@ -43,19 +44,19 @@ export const LeaderboardItem: React.FC<Omit<ILeaderboardItem, 'id'>> = ({
   avatarPath,
   playerName,
   scoreTotal,
-  scoreToday,
+  scoreMax,
 }) => (
   <LeaderboardCard>
     <BoldText>{userPosition}</BoldText>
-    <CardAvatar src={avatarPath} />
+    <CardAvatar src={`${imgUrl}${avatarPath}`} />
     <CardTitle level={2}>{playerName}</CardTitle>
     <CardInfo>
       <CardText>Общее число очков:</CardText>
       <BoldText>{scoreTotal}</BoldText>
     </CardInfo>
     <CardInfo>
-      <CardText>Очки за сегодня:</CardText>
-      <BoldText>{scoreToday}</BoldText>
+      <CardText>Максимальное число очков:</CardText>
+      <BoldText>{scoreMax}</BoldText>
     </CardInfo>
   </LeaderboardCard>
 )

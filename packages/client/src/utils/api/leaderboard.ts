@@ -7,7 +7,6 @@ export type TSetUserScoreData = {
   login: string
   avatar: string
   scoreMaxIK: number
-  scoreTotalIK: number
 }
 
 type TGetAllScoreBody = {

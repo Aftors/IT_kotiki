@@ -43,7 +43,6 @@ export const LeaderboardItem: React.FC<Omit<ILeaderboardItem, 'id'>> = ({
   userPosition,
   avatarPath,
   playerName,
-  scoreTotal,
   scoreMax,
 }) => (
   <LeaderboardCard>
@@ -51,11 +50,7 @@ export const LeaderboardItem: React.FC<Omit<ILeaderboardItem, 'id'>> = ({
     <CardAvatar src={`${imgUrl}${avatarPath}`} />
     <CardTitle level={2}>{playerName}</CardTitle>
     <CardInfo>
-      <CardText>Общее число очков:</CardText>
-      <BoldText>{scoreTotal}</BoldText>
-    </CardInfo>
-    <CardInfo>
-      <CardText>Максимальное число очков:</CardText>
+      <CardText>Личный рекорд:</CardText>
       <BoldText>{scoreMax}</BoldText>
     </CardInfo>
   </LeaderboardCard>

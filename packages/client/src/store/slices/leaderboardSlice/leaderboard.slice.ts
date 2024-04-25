@@ -26,13 +26,11 @@ export const leaderboardSlice = createSlice({
       state => state.data,
       data => {
         const leaderboardItems = data.map((item: TLeaderboardDTO) => {
-          const { id, display_name, login, avatar, scoreMaxIK, scoreTotalIK } =
-            item.data
+          const { id, display_name, login, avatar, scoreMaxIK } = item.data
           return {
             id,
             avatarPath: avatar,
             playerName: display_name || login,
-            scoreTotal: scoreTotalIK,
             scoreMax: scoreMaxIK,
           }
         })

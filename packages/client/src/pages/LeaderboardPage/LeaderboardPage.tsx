@@ -82,18 +82,15 @@ export const LeaderboardPage: React.FC = () => {
           <FilterOutlined onClick={toggleControls} />
         </PageTitle>
         <ContentContainer>
-          {data?.map(
-            ({ avatarPath, playerName, scoreTotal, scoreMax, id }, idx) => (
-              <LeaderboardItem
-                userPosition={idx + 1}
-                avatarPath={avatarPath}
-                playerName={playerName}
-                scoreTotal={scoreTotal}
-                scoreMax={scoreMax}
-                key={id}
-              />
-            )
-          )}
+          {data?.map(({ avatarPath, playerName, scoreMax, id }, idx) => (
+            <LeaderboardItem
+              userPosition={idx + 1}
+              avatarPath={avatarPath}
+              playerName={playerName}
+              scoreMax={scoreMax}
+              key={id}
+            />
+          ))}
         </ContentContainer>
         <LeaderboardControls
           isOpen={isControlsOpen}

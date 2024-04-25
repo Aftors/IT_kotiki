@@ -10,7 +10,6 @@ import { setLeaderboard } from '../../store/slices/leaderboardSlice/leaderboard.
 import { useAppDispatch } from '../../store/store'
 import { useSelector } from 'react-redux'
 import { userSelector } from '../../store/slices/userSlice/user.slice'
-import { leaderboardSelector } from '../../store/slices/leaderboardSlice/leaderboard.slice'
 
 export const Game = () => {
   const [gameStarted, setGameStarted] = useState(false)
@@ -24,7 +23,6 @@ export const Game = () => {
   const dispatch = useAppDispatch()
 
   const { id, display_name, login, avatar } = useSelector(userSelector)
-  const leaderboard = useSelector(leaderboardSelector)
 
   useEffect(() => {
     const instanceGame = new Core({ canvas: document.querySelector('canvas') })
@@ -61,10 +59,6 @@ export const Game = () => {
   }
 
   const setLeaderboardRecord = (score: number) => {
-    const userLeaderboardRecord = leaderboard?.find(record => record.id === id)
-    const newScoreTotal = userLeaderboardRecord?.scoreTotal
-      ? userLeaderboardRecord.scoreTotal + score
-      : score
     dispatch(
       setLeaderboard({
         id,
@@ -72,7 +66,6 @@ export const Game = () => {
         login,
         avatar,
         scoreMaxIK: score,
-        scoreTotalIK: newScoreTotal,
       })
     )
   }

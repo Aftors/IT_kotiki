@@ -4,7 +4,6 @@ export const mockLeaderboardItems = [
     id: 1,
     playerName: 'Игрок 1',
     scoreMax: 18,
-    scoreTotal: 143,
     userPosition: 1,
   },
   {
@@ -12,7 +11,6 @@ export const mockLeaderboardItems = [
     id: 2,
     playerName: 'Игрок 2',
     scoreMax: 4,
-    scoreTotal: 114,
     userPosition: 2,
   },
   {
@@ -20,7 +18,6 @@ export const mockLeaderboardItems = [
     id: 3,
     playerName: 'Игрок 3',
     scoreMax: 15,
-    scoreTotal: 165,
     userPosition: 3,
   },
 ]
@@ -31,7 +28,6 @@ export const expectedNoOrder = [
     id: 2,
     playerName: 'Игрок 2',
     scoreMax: 4,
-    scoreTotal: 114,
     userPosition: 2,
   },
   {
@@ -39,7 +35,6 @@ export const expectedNoOrder = [
     id: 3,
     playerName: 'Игрок 3',
     scoreMax: 15,
-    scoreTotal: 165,
     userPosition: 3,
   },
   {
@@ -47,7 +42,6 @@ export const expectedNoOrder = [
     id: 1,
     playerName: 'Игрок 1',
     scoreMax: 18,
-    scoreTotal: 143,
     userPosition: 1,
   },
 ]
@@ -58,7 +52,6 @@ export const expectedWithOrder = [
     id: 1,
     playerName: 'Игрок 1',
     scoreMax: 18,
-    scoreTotal: 143,
     userPosition: 1,
   },
   {
@@ -66,7 +59,6 @@ export const expectedWithOrder = [
     id: 3,
     playerName: 'Игрок 3',
     scoreMax: 15,
-    scoreTotal: 165,
     userPosition: 3,
   },
   {
@@ -74,7 +66,6 @@ export const expectedWithOrder = [
     id: 2,
     playerName: 'Игрок 2',
     scoreMax: 4,
-    scoreTotal: 114,
     userPosition: 2,
   },
 ]

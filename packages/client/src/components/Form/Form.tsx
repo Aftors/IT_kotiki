@@ -1,8 +1,10 @@
 import { Button, Form as AForm, Input } from 'antd'
 import { EFIELD_TYPE } from './models/models'
 import { FORM_CONFIG } from './constants/FormConfig'
-import { FC, Fragment } from 'react'
+import { Fragment } from 'react'
 import { FIELD_CONFIG } from './constants/FieldConfig'
+import styled from 'styled-components'
+import { Store } from 'antd/es/form/interface'
 
 type Type = string | number
 
@@ -25,7 +27,7 @@ export const Form: FC<IProps<unknown>> = <T,>({
     EFIELD_TYPE.NEW_PASSWORD,
   ]
 
-  const handleSubmit = values => {
+  const handleSubmit = (values: unknown) => {
     onSubmit(values)
   }
 
@@ -55,15 +57,7 @@ export const Form: FC<IProps<unknown>> = <T,>({
         )
       })}
       <AForm.Item style={{ textAlign: 'center' }}>
-        <Button
-          style={{
-            width: '100%',
-            marginTop: '20px',
-            border: 'none',
-          }}
-          htmlType="submit">
-          {CONFIG.submitBtnText}
-        </Button>
+        <FormButton htmlType="submit">{CONFIG.submitBtnText}</FormButton>
       </AForm.Item>
     </AForm>
   )

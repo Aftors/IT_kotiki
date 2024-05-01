@@ -15,7 +15,7 @@ export const loaderSlice = createSlice({
   selectors: {
     loaderSelector: state => state.isLoading,
   },
-  reducers: (): any => ({}),
+  reducers: () => ({}),
   extraReducers: builder => {
     builder
       .addMatcher(isPending, (state: TLoaderState) => {

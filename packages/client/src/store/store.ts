@@ -1,4 +1,4 @@
-import { AsyncThunkAction, configureStore, Dispatch } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { notificationSlice } from './slices/notification.slice'
 import { userSlice } from './slices/userSlice/user.slice'
 import { useDispatch } from 'react-redux'
@@ -14,5 +14,4 @@ export const store = configureStore({
 })
 
 export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = () =>
-  useDispatch<Dispatch<AsyncThunkAction<unknown, unknown, unknown>>>()
+export const useAppDispatch = () => useDispatch<any>()

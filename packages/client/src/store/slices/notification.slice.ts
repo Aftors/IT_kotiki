@@ -27,7 +27,7 @@ export const notificationSlice = createSlice({
   selectors: {
     notificationSelector: state => state,
   },
-  reducers: (create): any => ({
+  reducers: create => ({
     setNotificationInfo: create.reducer(
       (
         state: INotificationState,

@@ -1,17 +1,22 @@
 import { Button, Form as AForm, Input } from 'antd'
 import { EFIELD_TYPE } from './models/models'
-import { EPAGE_TYPE } from '../../models/models'
 import { FORM_CONFIG } from './constants/FormConfig'
 import { FC, Fragment } from 'react'
 import { FIELD_CONFIG } from './constants/FieldConfig'
 
-interface IProps<T> {
-  type: EPAGE_TYPE
-  onSubmit: (unknown) => Promise<void>
+type Type = string | number
+
+export interface IProps<T> {
+  type: Type
+  onSubmit: (unknown) => void
   initialData?: T
 }
 
-export const Form: FC = <T,>({ type, onSubmit, initialData }: IProps<T>) => {
+export const Form: FC<IProps<unknown>> = <T,>({
+  type,
+  onSubmit,
+  initialData,
+}: IProps<T>) => {
   const [form] = AForm.useForm()
   const CONFIG = FORM_CONFIG[type]
   const PASSWORD_FIELDS = [

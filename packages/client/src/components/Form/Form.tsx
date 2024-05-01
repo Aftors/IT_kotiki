@@ -1,17 +1,29 @@
 import { Button, Form as AForm, Input } from 'antd'
-import { EFIELD_TYPE } from './models/models'
+import { EFIELD_TYPE, EFORM_TYPE } from './models/models'
 import { EPAGE_TYPE } from '../../models/models'
 import { FORM_CONFIG } from './constants/FormConfig'
-import { FC, Fragment } from 'react'
+import { Fragment } from 'react'
 import { FIELD_CONFIG } from './constants/FieldConfig'
+import styled from 'styled-components'
+import { Store } from 'antd/es/form/interface'
 
 interface IProps<T> {
-  type: EPAGE_TYPE
-  onSubmit: (unknown) => Promise<void>
+  type: EPAGE_TYPE | EFORM_TYPE
+  onSubmit: (values: unknown) => Promise<void>
   initialData?: T
 }
 
-export const Form: FC = <T,>({ type, onSubmit, initialData }: IProps<T>) => {
+const FormButton = styled(Button)`
+  width: 100%;
+  border: none;
+  margin: 20px 0 0;
+`
+
+export const Form = <T extends Store | undefined>({
+  type,
+  onSubmit,
+  initialData,
+}: IProps<T>) => {
   const [form] = AForm.useForm()
   const CONFIG = FORM_CONFIG[type]
   const PASSWORD_FIELDS = [
@@ -20,7 +32,7 @@ export const Form: FC = <T,>({ type, onSubmit, initialData }: IProps<T>) => {
     EFIELD_TYPE.NEW_PASSWORD,
   ]
 
-  const handleSubmit = values => {
+  const handleSubmit = (values: unknown) => {
     onSubmit(values)
   }
 
@@ -50,15 +62,7 @@ export const Form: FC = <T,>({ type, onSubmit, initialData }: IProps<T>) => {
         )
       })}
       <AForm.Item style={{ textAlign: 'center' }}>
-        <Button
-          style={{
-            width: '100%',
-            marginTop: '20px',
-            border: 'none',
-          }}
-          htmlType="submit">
-          {CONFIG.submitBtnText}
-        </Button>
+        <FormButton htmlType="submit">{CONFIG.submitBtnText}</FormButton>
       </AForm.Item>
     </AForm>
   )

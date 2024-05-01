@@ -1,13 +1,15 @@
-import { Flex, Typography } from 'antd'
-import { FC } from 'react'
+import { Button, Flex, Typography } from 'antd'
+import { FC, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { SIGN_PAGE_CONFIG } from './сonstants/SignPageConfig'
+import { EPAGE_TYPE } from '../../models/models'
 import { TSignPageType } from './models/models'
 import { Form } from '../../components/Form/Form'
 import { useLocation, useNavigate } from 'react-router'
 import { ENOTIFICATION_TYPE, EPATH } from '../../models/models'
 import { auth } from '../../utils/api/auth'
-import { AUTH_ENDPOINT } from '../../utils/api/consts'
+import { getServiceId, oauth } from '../../utils/api/oauth'
+import { AUTH_ENDPOINT, redirectUrl } from '../../utils/api/consts'
 import {
   ISigninFormBody,
   ISignupFormBody,
@@ -19,6 +21,12 @@ import styled from 'styled-components'
 interface IProps {
   type: TSignPageType
 }
+
+const OAuthButton = styled(Button)`
+  width: 100%;
+  border: none;
+  margin: 0 0 24px;
+`
 
 const SignPageContainer = styled(Flex)`
   align-items: center;
@@ -44,8 +52,8 @@ export const SignPage: FC<IProps> = ({ type }) => {
 
   const fromPage = location.state?.from.pathname || EPATH.MAIN
 
-  const handleAuth = (body: ISigninFormBody | ISignupFormBody) => {
-    return auth(AUTH_ENDPOINT[type], body)
+  const handleAuthCallback = (callback: () => Promise<unknown>) => {
+    callback()
       .then(() => {
         localStorage.setItem('auth', 'true')
       })
@@ -63,11 +71,30 @@ export const SignPage: FC<IProps> = ({ type }) => {
       })
   }
 
+  useEffect(() => {
+    const code = new URLSearchParams(location.state?.from?.search).get('code')
+    if (code)
+      handleAuthCallback(() => oauth({ code, redirect_uri: redirectUrl }))
+  }, [])
+
+  const handleAuth = (body: ISigninFormBody | ISignupFormBody) => {
+    handleAuthCallback(() => auth(AUTH_ENDPOINT[type], body))
+  }
+
+  const handleOAuth = async () => {
+    const { service_id } = await getServiceId()
+    const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${redirectUrl}`
+    window.location.replace(url)
+  }
+
   return (
     <SignPageContainer>
       <Typography.Title level={1}>{CONFIG.title}</Typography.Title>
       <div className="form-wrapper">
-        <Form type={type} onSubmit={handleAuth} />
+        <Form type={type} onSubmit={handleAuth} onOAuth={handleOAuth} />
+        {type === EPAGE_TYPE.SIGNIN && (
+          <OAuthButton onClick={handleOAuth}>Войти через Яндекс</OAuthButton>
+        )}
       </div>
       <Link to={CONFIG.linkTo}>{CONFIG.textLink}</Link>
     </SignPageContainer>

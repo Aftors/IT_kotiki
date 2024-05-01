@@ -57,8 +57,8 @@ export const ProfilePage = () => {
       .catch(err => {
         dispatch(
           setNotificationInfo({
-            text: ENOTIFICATION_TYPE.ERROR,
-            type: err.reason,
+            type: ENOTIFICATION_TYPE.ERROR,
+            text: err.reason,
           })
         )
       })

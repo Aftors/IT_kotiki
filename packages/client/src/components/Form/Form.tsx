@@ -1,25 +1,20 @@
 import { Button, Form as AForm, Input } from 'antd'
-import { EFIELD_TYPE, EFORM_TYPE } from './models/models'
-import { EPAGE_TYPE } from '../../models/models'
+import { EFIELD_TYPE } from './models/models'
 import { FORM_CONFIG } from './constants/FormConfig'
 import { Fragment } from 'react'
 import { FIELD_CONFIG } from './constants/FieldConfig'
 import styled from 'styled-components'
 import { Store } from 'antd/es/form/interface'
 
-interface IProps<T> {
-  type: EPAGE_TYPE | EFORM_TYPE
-  onSubmit: (values: unknown) => Promise<void>
+type Type = string | number
+
+export interface IProps<T> {
+  type: Type
+  onSubmit: (unknown) => void
   initialData?: T
 }
 
-const FormButton = styled(Button)`
-  width: 100%;
-  border: none;
-  margin: 20px 0 0;
-`
-
-export const Form = <T extends Store | undefined>({
+export const Form: FC<IProps<unknown>> = <T,>({
   type,
   onSubmit,
   initialData,

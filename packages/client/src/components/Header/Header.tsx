@@ -37,7 +37,7 @@ export const Header: FC = () => {
         <Link to={EPATH.PROFILE}>
           <Avatar
             src={`${imgUrl}${avatar}`}
-            size="middle"
+            size="default"
             icon={<UserOutlined />}
           />
         </Link>

@@ -25,7 +25,7 @@ export const ProfileDataForm: FC = () => {
   }
   return (
     <DataContainer>
-      <Form<IUserDTO>
+      <Form
         type={EFORM_TYPE.PROFILE_INFO}
         onSubmit={changeData}
         initialData={data}

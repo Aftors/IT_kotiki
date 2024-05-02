@@ -32,9 +32,9 @@ export const userSlice = createSlice({
   initialState,
   selectors: {
     userSelector: state => state.data,
-    loadingAvatarSelector: state => state.loading,
+    loadingAvatarSelector: state => state.loadingAvatar,
   },
-  reducers: (create): any => ({
+  reducers: create => ({
     clearUserData: create.reducer((state: TUserState) => {
       state.data = initialState.data
     }),

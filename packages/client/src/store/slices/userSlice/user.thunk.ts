@@ -16,7 +16,6 @@ export const getUser = createAsyncThunk<
   try {
     const response = await axios.get(`${authUrl}/user`, {
       withCredentials: true,
-      'Content-Type': 'application/json',
     })
     return response.data
   } catch (error) {
@@ -33,7 +32,6 @@ export const changeUserAvatar = createAsyncThunk<
   try {
     const response = await axios.put(`${userUrl}/profile/avatar`, body, {
       withCredentials: true,
-      'Content-Type': 'multipart/form-data',
     })
     return response.data
   } catch (error) {
@@ -48,7 +46,6 @@ export const changeUserInfo = createAsyncThunk<
   try {
     const response = await axios.put(`${userUrl}/profile`, profileFormBody, {
       withCredentials: true,
-      'Content-Type': 'application/json',
     })
     return response.data
   } catch (error) {
@@ -63,7 +60,6 @@ export const changePassword = createAsyncThunk<
   try {
     const response = await axios.put(`${userUrl}/password`, passwordFormBody, {
       withCredentials: true,
-      'Content-Type': 'application/json',
     })
     return response.data
   } catch (error) {

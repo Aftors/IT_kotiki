@@ -6,6 +6,10 @@ import { EPATH } from '../../models/models'
 import { EndGameModal } from './StartGamePage/StartGamePage.style'
 import { EMODAL_TYPE } from '../../components/Modal/models/models'
 import { GameContainer, Properties } from './GamePage.style'
+import { setLeaderboard } from '../../store/slices/leaderboardSlice/leaderboard.thunk'
+import { useAppDispatch } from '../../store/store'
+import { useSelector } from 'react-redux'
+import { userSelector } from '../../store/slices/userSlice/user.slice'
 
 export const Game = () => {
   const [gameStarted, setGameStarted] = useState(false)
@@ -13,14 +17,18 @@ export const Game = () => {
   const [health, setHealth] = useState<number>()
   const [towers, setTowers] = useState<number>()
   const [killed, setKilled] = useState<number>()
-
   const [isModalOpen, setIsModalOpen] = useState(false)
+
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  const { id, display_name, login, avatar } = useSelector(userSelector)
 
   useEffect(() => {
     const instanceGame = new Core({ canvas: document.querySelector('canvas') })
     instanceGame.onEndGame = () => {
       stopGame()
+      setLeaderboardRecord(instanceGame.killedEnemies)
     }
     setGame(instanceGame)
   }, [])
@@ -33,7 +41,6 @@ export const Game = () => {
         setKilled(game.killedEnemies)
       }
     }, 700)
-
     return () => clearInterval(interval)
   }, [game])
 
@@ -49,6 +56,18 @@ export const Game = () => {
   const restartGame = () => {
     setIsModalOpen(false)
     setGameStarted(false)
+  }
+
+  const setLeaderboardRecord = (score: number) => {
+    dispatch(
+      setLeaderboard({
+        id,
+        display_name,
+        login,
+        avatar,
+        scoreMaxIK: score,
+      })
+    )
   }
 
   return (

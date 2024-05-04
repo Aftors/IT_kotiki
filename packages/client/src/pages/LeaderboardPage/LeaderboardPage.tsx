@@ -1,42 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Flex, Typography } from 'antd'
 import { FilterOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 import * as palette from '../../constants/color'
 import { LeaderboardItem } from '../../components/LeaderboardItem/LeaderboardItem'
-import { ILeaderboardItem } from '../../components/LeaderboardItem/models/models'
 import { LeaderboardControls } from '../../components/LeaderboardControls/LeaderboardControls'
 import { FieldData } from '../../components/LeaderboardControls/models/models'
 import { objectSorter } from '../../utils/helpers'
+import { leaderboardSelector } from '../../store/slices/leaderboardSlice/leaderboard.slice'
+import { getLeaderboard } from '../../store/slices/leaderboardSlice/leaderboard.thunk'
+import { useAppDispatch } from '../../store/store'
+import { useSelector } from 'react-redux'
 
 const { Title } = Typography
-
-const mockLeaderobardData: ILeaderboardItem[] = [
-  {
-    userPosition: 1,
-    avatarPath: '',
-    playerName: 'Игрок 1',
-    scoreTotal: 143,
-    scoreToday: 18,
-    id: 1,
-  },
-  {
-    userPosition: 2,
-    avatarPath: '',
-    playerName: 'Игрок 2',
-    scoreTotal: 114,
-    scoreToday: 4,
-    id: 2,
-  },
-  {
-    userPosition: 3,
-    avatarPath: '',
-    playerName: 'Игрок 3',
-    scoreTotal: 165,
-    scoreToday: 15,
-    id: 3,
-  },
-]
 
 const PageContent = styled(Flex)`
   flex-direction: column;
@@ -64,10 +40,27 @@ const PageTitle = styled(Title)`
 
 export const LeaderboardPage: React.FC = () => {
   const [isControlsOpen, setIsControlsOpen] = useState(false)
-  const [sortedData, setSortedData] =
-    useState<Record<string, string | number>[]>(mockLeaderobardData)
-  const [data, setData] =
-    useState<Record<string, string | number>[]>(mockLeaderobardData)
+  const [sortedData, setSortedData] = useState<
+    Record<string, string | number>[]
+  >([])
+  const [data, setData] = useState<Record<string, string | number>[]>([])
+
+  const leaderboard = useSelector(leaderboardSelector)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(
+      getLeaderboard({
+        cursor: 0,
+        limit: 10,
+      })
+    )
+  }, [])
+
+  useEffect(() => {
+    setData(leaderboard)
+    setSortedData(leaderboard)
+  }, [leaderboard])
 
   const toggleControls = () => setIsControlsOpen(!isControlsOpen)
 
@@ -89,25 +82,15 @@ export const LeaderboardPage: React.FC = () => {
           <FilterOutlined onClick={toggleControls} />
         </PageTitle>
         <ContentContainer>
-          {data?.map(
-            ({
-              userPosition,
-              avatarPath,
-              playerName,
-              scoreTotal,
-              scoreToday,
-              id,
-            }) => (
-              <LeaderboardItem
-                userPosition={userPosition}
-                avatarPath={avatarPath}
-                playerName={playerName}
-                scoreTotal={scoreTotal}
-                scoreToday={scoreToday}
-                key={id}
-              />
-            )
-          )}
+          {data?.map(({ avatarPath, playerName, scoreMax, id }, idx) => (
+            <LeaderboardItem
+              userPosition={idx + 1}
+              avatarPath={avatarPath}
+              playerName={playerName}
+              scoreMax={scoreMax}
+              key={id}
+            />
+          ))}
         </ContentContainer>
         <LeaderboardControls
           isOpen={isControlsOpen}

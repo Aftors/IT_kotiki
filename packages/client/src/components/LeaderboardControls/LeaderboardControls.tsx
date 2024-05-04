@@ -49,6 +49,9 @@ const ControlsSelect = styled(Select)`
     .ant-select-selector {
       border-radius: 12px;
       border: 1px solid ${palette.DEEP_PURPLE};
+      .ant-select-selection-item {
+        color: ${palette.DEEP_PURPLE};
+      }
     }
   }
 `
@@ -66,16 +69,12 @@ const ControlsCheckbox = styled(Checkbox)`
 
 const selectOptions = [
   {
-    value: 'scoreTotal',
-    label: 'Общий рейтинг',
-  },
-  {
     value: 'playerName',
     label: 'Имя игрока',
   },
   {
-    value: 'scoreToday',
-    label: 'Рейтинг за текущий день',
+    value: 'scoreMax',
+    label: 'Личный рекорд',
   },
 ]
 
@@ -87,7 +86,9 @@ export const LeaderboardControls: React.FC<ILeaderboardControlsProps> = ({
 }) => {
   return (
     <ControlsDrawer open={isOpen} onClose={onClose} width={328}>
-      <Form onFieldsChange={(_, fields) => onSorterChange(fields)}>
+      <Form
+        onFieldsChange={(_, fields) => onSorterChange(fields)}
+        initialValues={{ value: 'scoreMax' }}>
         <Form.Item
           name="order"
           label={<FilterBoldText>Возрастание/убывание</FilterBoldText>}

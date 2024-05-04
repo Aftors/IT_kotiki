@@ -7,6 +7,7 @@ export const authUrl = `${apiUrl}/auth`
 export const userUrl = `${apiUrl}/user`
 export const imgUrl = `${apiUrl}/resources`
 export const oauthUrl = `${apiUrl}/oauth/yandex`
+export const leaderboardUrl = `${apiUrl}/leaderboard`
 
 export const AUTH_ENDPOINT = {
   [EPAGE_TYPE.SIGNIN]: 'signin',

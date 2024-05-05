@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
-import { topicModel } from './models'
+import { topicModel, commentModel } from './models'
 
 dotenv.config()
 
@@ -24,6 +24,7 @@ const sequelizeOptions: SequelizeOptions = {
 const sequelize = new Sequelize(sequelizeOptions)
 
 export const Topic = sequelize.define('Topic', topicModel)
+export const Comment = sequelize.define('Comment', commentModel)
 
 export async function dbConnect() {
   try {

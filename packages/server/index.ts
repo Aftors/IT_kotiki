@@ -5,12 +5,15 @@ import { createServer as createViteServer } from 'vite'
 import express from 'express'
 import * as path from 'path'
 import * as fs from 'fs'
+import router from './routes'
 
 dotenv.config()
 
 async function startServer() {
   const app = express()
   app.use(cors())
+  app.use('/api', router)
+
   const port = Number(process.env.SERVER_PORT) || 3001
 
   const isDev = () => process.env.NODE_ENV === 'development'

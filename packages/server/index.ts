@@ -39,37 +39,40 @@ async function startServer() {
 
     try {
       let template: string
+      let render: (
+        url: string
+      ) => Promise<{ html: string; initialState: unknown; cookie: string }>
 
-      if (!isDev()) {
-        template = fs.readFileSync(
-          path.resolve(distPath, 'index.html'),
-          'utf-8'
-        )
-      } else {
+      if (isDev()) {
         template = fs.readFileSync(
           path.resolve(clientPath, 'index.html'),
           'utf-8'
         )
-
         template = await vite!.transformIndexHtml(url, template)
-      }
-
-      let render: () => Promise<string>
-      if (!isDev()) {
-        render = (await import(ssrDistPath)).render
+        render = await vite!
+          .ssrLoadModule(path.resolve(clientPath, 'ssr.tsx'))
+          .then(m => m.render)
       } else {
-        render = (
-          await vite!.ssrLoadModule(path.resolve(clientPath, 'ssr.tsx'))
-        ).render
+        template = fs.readFileSync(
+          path.resolve(distPath, 'index.html'),
+          'utf-8'
+        )
+        render = (await import(ssrDistPath)).render
       }
 
-      const appHtml = await render()
+      const { html: appHtml, initialState } = await render(url)
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(
+          `<!--ssr-initial-state-->`,
+          `<script>window.APP_INITIAL_STATE = ${JSON.stringify(
+            initialState
+          )}</script>`
+        )
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
-      vite!.ssrFixStacktrace(e as Error)
       next(e)
     }
   })

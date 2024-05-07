@@ -91,7 +91,7 @@ export const SignPage: FC<IProps> = ({ type }) => {
     <SignPageContainer>
       <Typography.Title level={1}>{CONFIG.title}</Typography.Title>
       <div className="form-wrapper">
-        <Form type={type} onSubmit={handleAuth} onOAuth={handleOAuth} />
+        <Form type={type} onSubmit={handleAuth} />
         {type === EPAGE_TYPE.SIGNIN && (
           <OAuthButton onClick={handleOAuth}>Войти через Яндекс</OAuthButton>
         )}

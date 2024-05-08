@@ -15,6 +15,12 @@ export default defineConfig({
       output: {
         dir: 'dist-ssr',
       },
+      onwarn(warning, warn) {
+        if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+          return
+        }
+        warn(warning)
+      },
     },
   },
 })

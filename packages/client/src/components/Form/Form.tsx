@@ -1,10 +1,9 @@
 import { Button, Form as AForm, Input } from 'antd'
 import { EFIELD_TYPE } from './models/models'
 import { FORM_CONFIG } from './constants/FormConfig'
-import { Fragment } from 'react'
+import { FC, Fragment } from 'react'
 import { FIELD_CONFIG } from './constants/FieldConfig'
 import styled from 'styled-components'
-import { Store } from 'antd/es/form/interface'
 
 type Type = string | number
 
@@ -13,6 +12,12 @@ export interface IProps<T> {
   onSubmit: (unknown) => void
   initialData?: T
 }
+
+const FormButton = styled(Button)`
+  width: 100%;
+  border: none;
+  margin: 20px 0 0;
+`
 
 export const Form: FC<IProps<unknown>> = <T,>({
   type,

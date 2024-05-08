@@ -19,6 +19,7 @@ export const getUser = createAsyncThunk<
     })
     return response.data
   } catch (error) {
+    localStorage.setItem('auth', 'false')
     return rejectWithValue(error.message)
   }
 })

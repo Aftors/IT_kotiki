@@ -41,17 +41,21 @@ async function startServer() {
       let template: string
       let render: (
         url: string
-      ) => Promise<{ html: string; initialState: unknown; cookie: string }>
+      ) => Promise<{
+        html: string
+        initialState: Record<string, unknown>
+        cookie: string
+      }>
 
-      if (isDev()) {
+      if (isDev() && vite) {
         template = fs.readFileSync(
           path.resolve(clientPath, 'index.html'),
           'utf-8'
         )
-        template = await vite!.transformIndexHtml(url, template)
-        render = await vite!
+        template = await vite.transformIndexHtml(url, template)
+        render = await vite
           .ssrLoadModule(path.resolve(clientPath, 'ssr.tsx'))
-          .then(m => m.render)
+          .then(module => module.render)
       } else {
         template = fs.readFileSync(
           path.resolve(distPath, 'index.html'),

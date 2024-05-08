@@ -12,12 +12,6 @@ export const reducer = combineReducers({
   [leaderboardSlice.name]: leaderboardSlice.reducer,
 })
 
-declare global {
-  interface Window {
-    APP_INITIAL_STATE: RootState
-  }
-}
-
 export const store = configureStore({
   reducer,
   devTools: true,

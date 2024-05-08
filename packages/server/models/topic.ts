@@ -10,7 +10,7 @@ interface ITopic {
 
 export const topicModel: ModelAttributes<Model, ITopic> = {
   id: {
-    type: DataType.UUID,
+    type: DataType.STRING,
     defaultValue: DataType.UUIDV4,
     allowNull: false,
     primaryKey: true,

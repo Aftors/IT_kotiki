@@ -16,7 +16,7 @@ async function startServer() {
   await dbConnect()
 
   app.use(cors())
-  app.use('/forum', router)
+  app.use('/api/forum', router)
 
   const port = Number(process.env.SERVER_PORT) || 3001
 
@@ -46,9 +46,7 @@ async function startServer() {
 
     try {
       let template: string
-      let render: (
-        url: string
-      ) => Promise<{
+      let render: (url: string) => Promise<{
         html: string
         initialState: Record<string, unknown>
         cookie: string

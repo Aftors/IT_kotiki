@@ -27,6 +27,12 @@ export const Topic = sequelize.define('Topic', topicModel)
 export const Comment = sequelize.define('Comment', commentModel)
 export const Reply = sequelize.define('Reply', replyModel)
 
+Topic.hasMany(Comment, { foreignKey: 'id_topic' })
+Comment.belongsTo(Topic, { foreignKey: 'id_topic', targetKey: 'id' })
+
+Comment.hasMany(Reply, { foreignKey: 'id_comment' })
+Reply.belongsTo(Comment, { foreignKey: 'id_comment', targetKey: 'id' })
+
 export async function dbConnect() {
   try {
     await sequelize.authenticate()

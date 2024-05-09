@@ -5,12 +5,19 @@ import { createServer as createViteServer } from 'vite'
 import express from 'express'
 import * as path from 'path'
 import * as fs from 'fs'
+import router from './routes'
+import { dbConnect } from './db'
 
 dotenv.config()
 
 async function startServer() {
   const app = express()
+
+  await dbConnect()
+
   app.use(cors())
+  app.use('/api/forum', router)
+
   const port = Number(process.env.SERVER_PORT) || 3001
 
   const isDev = () => process.env.NODE_ENV === 'development'
@@ -39,9 +46,7 @@ async function startServer() {
 
     try {
       let template: string
-      let render: (
-        url: string
-      ) => Promise<{
+      let render: (url: string) => Promise<{
         html: string
         initialState: Record<string, unknown>
         cookie: string

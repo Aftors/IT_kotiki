@@ -1,13 +1,14 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { Header } from '../Header/Header'
 import { ConfigProvider, Layout as ALayout, Spin } from 'antd'
 import { EPATH } from '../../models/models'
-import { ANTD_CONFIG } from '../../constants/antd.config'
+import { ANTD_CONFIG, ANTD_CONFIG_BLACK } from '../../constants/antd.config'
 import { Notification } from '../Notification/Notification'
 import { useSelector } from 'react-redux'
 import { loaderSelector } from '../../store/slices/loader.slice'
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
+import { themeSelector } from '../../store/slices/theme.slice'
 
 export const Layout: FC = () => {
   const { pathname } = useLocation()
@@ -15,10 +16,12 @@ export const Layout: FC = () => {
     EPATH.SIGN_IN as string,
     EPATH.SIGN_UP as string,
   ].includes(pathname)
+
   const isLoading = useSelector(loaderSelector)
+  const theme = useSelector(themeSelector)
 
   return (
-    <ConfigProvider theme={ANTD_CONFIG}>
+    <ConfigProvider theme={theme ? ANTD_CONFIG_BLACK : ANTD_CONFIG}>
       <ErrorBoundary>
         <Notification />
         <Spin spinning={isLoading} fullscreen />

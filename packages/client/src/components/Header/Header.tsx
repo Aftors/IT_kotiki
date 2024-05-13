@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { Avatar, Flex, Layout, Switch } from 'antd'
 import { EPATH } from '../../models/models'
 import { Link } from 'react-router-dom'
@@ -32,6 +32,15 @@ export const Header: FC = () => {
   const dispatchTheme = useDispatch()
 
   const theme: boolean = useSelector(themeSelector)
+  const firstRender = useRef(true)
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+    } else {
+      localStorage.setItem('theme', JSON.stringify(theme))
+    }
+  }, [theme])
 
   useEffect(() => {
     if (!id) dispatch(getUser())
@@ -50,7 +59,7 @@ export const Header: FC = () => {
         <Flex gap="middle" align="center">
           <span>Тема</span>
           <ControlsSwitch
-            defaultValue={theme}
+            value={theme}
             onChange={() => dispatchTheme(changeTheme())}
           />
           <Link to={EPATH.PROFILE}>

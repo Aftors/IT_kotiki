@@ -8,6 +8,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import router from './routes'
 import { dbConnect } from './db'
+import { authMiddleware } from './middlewares/authMiddleware'
 
 dotenv.config()
 
@@ -17,7 +18,7 @@ async function startServer() {
   await dbConnect()
 
   app.use(cors())
-  app.use('/api/forum', router)
+  app.use('/api/forum', authMiddleware, router)
 
   const port = Number(process.env.SERVER_PORT) || 3000
 

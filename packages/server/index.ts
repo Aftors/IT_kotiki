@@ -26,12 +26,12 @@ async function startServer() {
       root: clientPath,
       appType: 'custom',
     })
-
     app.use(vite.middlewares)
   }
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
+    app.use('/', express.static(path.resolve(clientPath, 'public')))
   }
 
   app.use('*', async (req, res, next) => {
@@ -39,9 +39,7 @@ async function startServer() {
 
     try {
       let template: string
-      let render: (
-        url: string
-      ) => Promise<{
+      let render: (url: string) => Promise<{
         html: string
         initialState: Record<string, unknown>
         cookie: string

@@ -1,4 +1,4 @@
-import { oauthUrl, redirectUrl } from './consts'
+import { oauthUrl, BASE_URL } from './consts'
 import axios from 'axios'
 
 interface IOAuthBody {
@@ -8,7 +8,7 @@ interface IOAuthBody {
 
 export const getServiceId = () => {
   return axios
-    .get(`${oauthUrl}/service-id?redirect_uri=${redirectUrl}`)
+    .get(`${oauthUrl}/service-id?redirect_uri=${BASE_URL}`)
     .then(res => res.data)
     .catch(err => {
       return Promise.reject(err.response.data.reason)

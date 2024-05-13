@@ -16,10 +16,6 @@ const UserDataItem = styled(Flex)`
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 2px solid ${WHITE_TEXT};
-
-  * {
-    color: ${WHITE_TEXT};
-  }
 `
 
 const Items = {

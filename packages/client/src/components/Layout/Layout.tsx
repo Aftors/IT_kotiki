@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { Header } from '../Header/Header'
 import { ConfigProvider, Layout as ALayout, Spin } from 'antd'
@@ -18,7 +18,11 @@ export const Layout: FC = () => {
   ].includes(pathname)
 
   const isLoading = useSelector(loaderSelector)
-  const theme = useSelector(themeSelector)
+  const theme: boolean = useSelector(themeSelector)
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(theme))
+  }, [theme])
 
   return (
     <ConfigProvider theme={theme ? ANTD_CONFIG_BLACK : ANTD_CONFIG}>

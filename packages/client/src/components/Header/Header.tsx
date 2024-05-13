@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../store/store'
 import { getUser } from '../../store/slices/userSlice/user.thunk'
 import styled from 'styled-components'
 import * as palette from '../../constants/color'
-import { changeTheme } from '../../store/slices/theme.slice'
+import { changeTheme, themeSelector } from '../../store/slices/theme.slice'
 
 const HeaderLayout = styled(Layout.Header)`
   a {
@@ -19,9 +19,9 @@ const HeaderLayout = styled(Layout.Header)`
 `
 const ControlsSwitch = styled(Switch)`
   &.ant-switch.ant-switch-checked {
-    background: ${palette.DEEP_PURPLE};
+    background: ${palette.DEEP_PINK};
     &:hover {
-      background: ${palette.DEEP_PURPLE};
+      background: ${palette.DEEP_PINK};
     }
   }
 `
@@ -30,6 +30,8 @@ export const Header: FC = () => {
   const { id, avatar } = useSelector(userSelector)
   const dispatch = useAppDispatch()
   const dispatchTheme = useDispatch()
+
+  const theme: boolean = useSelector(themeSelector)
 
   useEffect(() => {
     if (!id) dispatch(getUser())
@@ -47,7 +49,10 @@ export const Header: FC = () => {
         </Flex>
         <Flex gap="middle" align="center">
           <span>Тема</span>
-          <ControlsSwitch onChange={() => dispatchTheme(changeTheme())} />
+          <ControlsSwitch
+            defaultValue={theme}
+            onChange={() => dispatchTheme(changeTheme())}
+          />
           <Link to={EPATH.PROFILE}>
             <Avatar
               src={`${imgUrl}${avatar}`}

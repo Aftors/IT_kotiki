@@ -4,8 +4,17 @@ interface IThemeState {
   theme: boolean
 }
 
+const localTheme = () => {
+  if (localStorage.getItem('theme') === undefined) {
+    localStorage.setItem('theme', 'false')
+    return false
+  } else {
+    return JSON.parse(localStorage.getItem('theme'))
+  }
+}
+
 const initialState = {
-  theme: false,
+  theme: localTheme(),
 }
 
 export const themeSlice = createSlice({

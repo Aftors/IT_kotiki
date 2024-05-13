@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { ENOTIFICATION_TYPE, EPATH } from '../../models/models'
 import { auth } from '../../utils/api/auth'
 import { getServiceId, oauth } from '../../utils/api/oauth'
-import { AUTH_ENDPOINT, redirectUrl } from '../../utils/api/consts'
+import { AUTH_ENDPOINT, BASE_URL } from '../../utils/api/consts'
 import {
   ISigninFormBody,
   ISignupFormBody,
@@ -73,8 +73,7 @@ export const SignPage: FC<IProps> = ({ type }) => {
 
   useEffect(() => {
     const code = new URLSearchParams(location.state?.from?.search).get('code')
-    if (code)
-      handleAuthCallback(() => oauth({ code, redirect_uri: redirectUrl }))
+    if (code) handleAuthCallback(() => oauth({ code, redirect_uri: BASE_URL }))
   }, [])
 
   const handleAuth = (body: ISigninFormBody | ISignupFormBody) => {
@@ -83,7 +82,7 @@ export const SignPage: FC<IProps> = ({ type }) => {
 
   const handleOAuth = async () => {
     const { service_id } = await getServiceId()
-    const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${redirectUrl}`
+    const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${BASE_URL}`
     window.location.replace(url)
   }
 

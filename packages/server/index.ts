@@ -40,7 +40,6 @@ async function startServer() {
       root: clientPath,
       appType: 'custom',
     })
-
     app.use(vite.middlewares)
   }
 
@@ -57,6 +56,7 @@ async function startServer() {
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
+    app.use('/', express.static(path.resolve(clientPath, 'public')))
   }
 
   app.use('*', async (req, res, next) => {

@@ -4,12 +4,14 @@ import { userSlice } from './slices/userSlice/user.slice'
 import { useDispatch } from 'react-redux'
 import { loaderSlice } from './slices/loader.slice'
 import { leaderboardSlice } from './slices/leaderboardSlice/leaderboard.slice'
+import { themeSlice } from './slices/theme.slice'
 
 export const reducer = combineReducers({
   [notificationSlice.name]: notificationSlice.reducer,
   [loaderSlice.name]: loaderSlice.reducer,
   [userSlice.name]: userSlice.reducer,
   [leaderboardSlice.name]: leaderboardSlice.reducer,
+  [themeSlice.name]: themeSlice.reducer,
 })
 
 export const store = configureStore({

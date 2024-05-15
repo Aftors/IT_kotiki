@@ -17,7 +17,12 @@ async function startServer() {
 
   await dbConnect()
 
-  app.use(cors())
+  app.use(
+    cors({
+      credentials: true,
+      origin: [`http://localhost:${process.env.CLIENT_PORT}`],
+    })
+  )
   app.use('/api/forum', authMiddleware, router)
 
   const port = Number(process.env.SERVER_PORT) || 3000

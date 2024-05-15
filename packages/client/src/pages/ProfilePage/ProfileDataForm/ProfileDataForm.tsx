@@ -4,10 +4,7 @@ import styled from 'styled-components'
 import { Flex } from 'antd'
 import { EFORM_TYPE, IUserInfo } from '../../../components/Form/models/models'
 import { useSelector } from 'react-redux'
-import {
-  IUserDTO,
-  userSelector,
-} from '../../../store/slices/userSlice/user.slice'
+import { userSelector } from '../../../store/slices/userSlice/user.slice'
 import { useAppDispatch } from '../../../store/store'
 import { changeUserInfo } from '../../../store/slices/userSlice/user.thunk'
 

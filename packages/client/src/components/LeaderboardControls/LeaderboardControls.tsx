@@ -8,7 +8,7 @@ const { Text } = Typography
 const ControlsDrawer = styled(Drawer)`
   &.ant-drawer-content {
     border-radius: 12px 0 0 12px;
-    background-color: ${palette.LIGHT_OCEAN};
+    background-color: ${palette.BACKGROUND};
 
     .ant-drawer-header {
       display: none;
@@ -24,7 +24,7 @@ const ControlsDrawer = styled(Drawer)`
 `
 
 const FilterText = styled(Text)`
-  color: ${palette.DEEP_PURPLE};
+  color: ${palette.DEEP_PINK};
 `
 
 const FilterBoldText = styled(FilterText)`
@@ -32,14 +32,14 @@ const FilterBoldText = styled(FilterText)`
 `
 
 const SorterText = styled(Text)`
-  color: ${palette.DEEP_OCEAN};
+  color: ${palette.DEEP_PINK};
 `
 
 const ControlsSwitch = styled(Switch)`
   &.ant-switch.ant-switch-checked {
-    background: ${palette.DEEP_PURPLE};
+    background: ${palette.DEEP_PINK};
     &:hover {
-      background: ${palette.DEEP_PURPLE};
+      background: ${palette.DEEP_PINK};
     }
   }
 `
@@ -48,9 +48,9 @@ const ControlsSelect = styled(Select)`
   && {
     .ant-select-selector {
       border-radius: 12px;
-      border: 1px solid ${palette.DEEP_PURPLE};
+      border: 1px solid ${palette.DEEP_PINK};
       .ant-select-selection-item {
-        color: ${palette.DEEP_PURPLE};
+        color: ${palette.DEEP_PINK};
       }
     }
   }
@@ -61,8 +61,8 @@ const ControlsCheckbox = styled(Checkbox)`
     .ant-checkbox-wrapper:hover .ant-checkbox-checked .ant-checkbox-inner,
     .ant-checkbox-checked:hover .ant-checkbox-inner,
     .ant-checkbox-checked .ant-checkbox-inner {
-      background-color: ${palette.DEEP_OCEAN};
-      border-color: ${palette.DEEP_OCEAN};
+      background-color: ${palette.DEEP_PINK};
+      border-color: ${palette.DEEP_PINK};
     }
   }
 `

@@ -1,6 +1,5 @@
 export interface IForumTopic {
-  avatarPath: string
-  topicTitle: string
-  responsesNumber: number
+  topicTitle: string;
+  description: string;
   id: number
 }

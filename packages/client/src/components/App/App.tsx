@@ -9,6 +9,8 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
 import { NotFoundPage } from '../../pages/ErrorPage/NotFoundPage'
 import { ServerErrorPage } from '../../pages/ErrorPage/ServerErrorPage'
 import { LeaderboardPage } from '../../pages/LeaderboardPage/LeaderboardPage'
+import { ForumList } from '../../pages/ForumPage/components/ForumList/ForumList'
+import { ForumItem } from '../../pages/ForumPage/components/ForumItem/ForumItem'
 
 function App() {
   return (
@@ -18,7 +20,10 @@ function App() {
           <Route index path={EPATH.MAIN} element={<Game />} />
           <Route path={EPATH.PROFILE} element={<ProfilePage />} />
           <Route path={EPATH.LEADER_BOARD} element={<LeaderboardPage />} />
-          <Route path={EPATH.FORUM} element={<ForumPage />} />
+          <Route path={EPATH.FORUM} element={<ForumPage />} >
+            <Route index element={<ForumList/>}/>
+            <Route path=":id" element={<ForumItem/>}/>
+          </Route>
         </Route>
         <Route
           path={EPATH.SIGN_UP}

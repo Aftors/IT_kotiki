@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const Card = styled(ACard)`
   & {
     width: 100%;
-    height: 80px;
+    min-height: 80px;
 
     .ant-card-body {
       display: flex;

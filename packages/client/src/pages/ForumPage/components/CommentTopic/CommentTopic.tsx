@@ -24,8 +24,14 @@ const CommentCard = styled(Card)`
   }
 `
 
-const CommentTopic: FC = ({ author, content, id, time }) => (
-  <CommentCard type='inner' title={content} extra={<Button type='text' to={id}>Ответить</Button>}>
+interface IProps {
+  author: string,
+  content: string,
+  time: string,
+}
+
+const CommentTopic: FC<IProps> = ({ author, content, time }) => (
+  <CommentCard type='inner' title={content} extra={<Button type='text'>Ответить</Button>}>
     <Text>{author}</Text>
     <span>{time.split('T')[0].split('-').reverse().join('.')}</span>
   </CommentCard>

@@ -17,8 +17,8 @@ const ForumText = styled(Text)`
 `
 
 
-const ForumTopic: FC<Omit<IForumTopic, 'id'>> = ({ topicTitle, description, id }) => (
-  <ForumCard type='inner' title={topicTitle} extra={<Link to={id}>Читать</Link>}>
+const ForumTopic: FC<IForumTopic> = ({ topicTitle, description, id }) => (
+  <ForumCard type='inner' title={topicTitle} extra={<Link to={id.toString()}>Читать</Link>}>
     <ForumText>{description}</ForumText>
   </ForumCard>
 )

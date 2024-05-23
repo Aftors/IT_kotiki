@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import {
-  DEEP_OCEAN,
+  COLD_GREY,
   DEEP_PINK,
-  DEEP_PURPLE,
-  ORANGE,
+  LIGHT_GREY,
+  LIGHT_PINK,
   WHITE_TEXT,
 } from '../../../constants/color'
 import { Card, Statistic, Typography } from 'antd'
@@ -13,7 +13,7 @@ const { Title } = Typography
 
 export const StartGameTitle = styled(Title)`
   &.ant-typography {
-    color: ${WHITE_TEXT};
+    color: ${LIGHT_GREY};
     margin: 44px 0 12px;
   }
 `
@@ -32,7 +32,7 @@ export const HintCardWrapper = styled.div`
 `
 
 export const HintCard = styled(Card)`
-  background: #474747;
+  background: ${COLD_GREY};
   border: none;
   color: ${WHITE_TEXT};
   padding: 24px;
@@ -76,15 +76,15 @@ export const EndGameModal = styled(Modal)`
     justify-content: space-between;
 
     .ant-btn-primary {
-      background-color: ${DEEP_OCEAN}25;
-      border: 1px dashed ${DEEP_PURPLE};
-      color: ${DEEP_PURPLE};
+      background-color: ${DEEP_PINK}25;
+      border: 1px dashed ${DEEP_PINK};
+      color: ${DEEP_PINK};
       font-weight: bold;
 
       &:hover {
-        background-color: ${DEEP_OCEAN}25;
-        color: ${ORANGE};
-        border: 1px dashed ${ORANGE};
+        background-color: ${LIGHT_PINK}25;
+        color: ${LIGHT_PINK};
+        border: 1px dashed ${LIGHT_PINK};
       }
     }
   }

@@ -8,7 +8,7 @@ import { imgUrl } from '../../utils/api/consts'
 const { Text, Title } = Typography
 
 const LeaderboardCard = styled(Card)`
-  border: 1px solid ${palette.DEEP_PINK};
+  border: 1px solid ${palette.LIGHT_GREY};
   border-radius: 12px;
 `
 
@@ -32,11 +32,12 @@ const CardInfo = styled.div`
 `
 
 const CardText = styled(Text)`
-  color: ${palette.DEEP_PINK};
+  color: ${palette.LIGHT_GREY};
 `
 
 const BoldText = styled(CardText)`
   font-weight: bold;
+  color: ${palette.LIGHT_PINK};
 `
 
 export const LeaderboardItem: React.FC<Omit<ILeaderboardItem, 'id'>> = ({

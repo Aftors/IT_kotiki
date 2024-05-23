@@ -13,18 +13,23 @@ export const ANTD_CONFIG_BLACK = {
   token: {
     fontFamily: '"Gill Sans", "Gill Sans MT", sans-serif',
     fontSize: 16,
-    colorText: WHITE_TEXT,
+    colorText: LIGHT_GREY,
     colorLink: LIGHT_GREY,
     colorLinkHover: LIGHT_PINK,
     fontSizeHeading1: 30,
     fontSizeHeading2: 16,
     linkDecoration: 'underline',
+    colorBgContainer: 'transparent',
   },
   components: {
     Layout: {
-      bodyBg: `${BACKGROUND}`,
-      footerBg: `${BACKGROUND}`,
-      headerBg: `${BACKGROUND}`,
+      bodyBg: BACKGROUND,
+      footerBg: BACKGROUND,
+      headerBg: BACKGROUND,
+    },
+
+    Tabs: {
+      itemColor: `${LIGHT_GREY}`,
     },
 
     Button: {
@@ -46,8 +51,13 @@ export const ANTD_CONFIG_BLACK = {
       hoverBorderColor: `${DEEP_PINK}70`,
       activeBorderColor: DEEP_PINK,
       activeShadow: `0 0 0 2px ${DEEP_PINK}30`,
-      colorText: COLD_GREY,
+      colorText: LIGHT_PINK,
       colorTextPlaceholder: LIGHT_GREY,
+    },
+
+    Modal: {
+      contentBg: `${COLD_GREY}`,
+      headerBg: `${COLD_GREY}`,
     },
   },
 }

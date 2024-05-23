@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Flex, Typography } from 'antd'
 import styled from 'styled-components'
-import { WHITE_TEXT } from '../../../constants/color'
+import { LIGHT_GREY } from '../../../constants/color'
 import { userSelector } from '../../../store/slices/userSlice/user.slice'
 import { useSelector } from 'react-redux'
 
@@ -15,7 +15,7 @@ const UserDataItem = styled(Flex)`
   width: 100%;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 2px solid ${WHITE_TEXT};
+  border-bottom: 1px solid ${LIGHT_GREY};
 `
 
 const Items = {

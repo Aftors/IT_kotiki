@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
-import { topicModel, commentModel, replyModel } from './models'
+import { topicModel, commentModel, replyModel, reactionModel } from './models'
 
 dotenv.config()
 
@@ -26,12 +26,19 @@ const sequelize = new Sequelize(sequelizeOptions)
 export const Topic = sequelize.define('Topic', topicModel)
 export const Comment = sequelize.define('Comment', commentModel)
 export const Reply = sequelize.define('Reply', replyModel)
+export const Reaction = sequelize.define('Reaction', reactionModel)
 
 Topic.hasMany(Comment, { foreignKey: 'id_topic' })
 Comment.belongsTo(Topic, { foreignKey: 'id_topic', targetKey: 'id' })
 
 Comment.hasMany(Reply, { foreignKey: 'id_comment' })
 Reply.belongsTo(Comment, { foreignKey: 'id_comment', targetKey: 'id' })
+
+Comment.hasMany(Reaction, { foreignKey: 'id_comment' })
+Reaction.belongsTo(Comment, { foreignKey: 'id_comment', targetKey: 'id' })
+
+Reply.hasMany(Reaction, { foreignKey: 'id_reply' })
+Reaction.belongsTo(Reply, { foreignKey: 'id_reply', targetKey: 'id' })
 
 export async function dbConnect() {
   try {

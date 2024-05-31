@@ -1,11 +1,11 @@
 import { DataType, Model } from 'sequelize-typescript'
 import type { ModelAttributes } from 'sequelize'
 
-interface IReaction {
+export interface IReaction {
   id: string
   id_comment: string | null
   id_reply: string | null
-  id_user: string
+  id_user: number
   login_user: string
   value: string
 }
@@ -26,7 +26,7 @@ export const reactionModel: ModelAttributes<Model, IReaction> = {
     defaultValue: null,
   },
   id_user: {
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   },
   login_user: {

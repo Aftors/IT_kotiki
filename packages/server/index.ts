@@ -20,7 +20,10 @@ async function startServer() {
   app.use(
     cors({
       credentials: true,
-      origin: [`http://localhost:${process.env.CLIENT_PORT}`],
+      origin: [
+        `http://localhost:${process.env.CLIENT_PORT}`,
+        'http://84.201.138.96',
+      ],
     })
   )
   app.use('/api/forum', authMiddleware, router)

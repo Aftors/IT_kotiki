@@ -8,7 +8,6 @@ const { Text } = Typography
 const ControlsDrawer = styled(Drawer)`
   &.ant-drawer-content {
     border-radius: 12px 0 0 12px;
-    background-color: ${palette.BACKGROUND};
 
     .ant-drawer-header {
       display: none;

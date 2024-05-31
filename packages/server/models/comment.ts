@@ -1,12 +1,14 @@
 import { DataType, Model } from 'sequelize-typescript'
 import type { ModelAttributes } from 'sequelize'
+import { IReaction } from './reaction'
 
-interface IComment {
+export interface IComment {
   id: string
   id_topic: string
   id_user: string
   login_user: string
   content: string
+  reactions?: IReaction[]
 }
 
 export const commentModel: ModelAttributes<Model, IComment> = {

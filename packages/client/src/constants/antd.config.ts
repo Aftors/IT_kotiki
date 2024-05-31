@@ -59,6 +59,14 @@ export const ANTD_CONFIG_BLACK = {
       contentBg: `${COLD_GREY}`,
       headerBg: `${COLD_GREY}`,
     },
+
+    Popover: {
+      colorBgElevated: BACKGROUND,
+    },
+
+    Drawer: {
+      colorBgElevated: BACKGROUND,
+    },
   },
 }
 
@@ -101,6 +109,10 @@ export const ANTD_CONFIG = {
       activeShadow: `0 0 0 2px ${DEEP_PINK}30`,
       colorText: COLD_GREY,
       colorTextPlaceholder: LIGHT_GREY,
+    },
+
+    Drawer: {
+      colorBgElevated: 'white',
     },
   },
 }

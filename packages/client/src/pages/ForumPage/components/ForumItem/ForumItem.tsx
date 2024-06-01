@@ -84,17 +84,10 @@ export const ForumItem: FC = () => {
     await getComments()
   }
 
-  async function handleReactionDelete(
-    value: string,
-    reactionInfo: Record<string, string | null>[]
-  ) {
-    const userReactionInfo = reactionInfo.find(
-      item => item.id_user === id_user.toString()
-    )
-    if (userReactionInfo) {
-      await deleteReaction(userReactionInfo.id)
-      await getComments()
-    }
+  async function handleReactionDelete(id: string) {
+    if (!id) return
+    await deleteReaction(id)
+    await getComments()
   }
 
   useEffect(() => {

@@ -67,6 +67,12 @@ export const ANTD_CONFIG_BLACK = {
     Drawer: {
       colorBgElevated: BACKGROUND,
     },
+
+    Badge: {
+      textFontSize: 10,
+      indicatorHeight: 14,
+      colorBgContainer: 'white',
+    },
   },
 }
 
@@ -113,6 +119,11 @@ export const ANTD_CONFIG = {
 
     Drawer: {
       colorBgElevated: 'white',
+    },
+
+    Badge: {
+      textFontSize: 10,
+      indicatorHeight: 14,
     },
   },
 }

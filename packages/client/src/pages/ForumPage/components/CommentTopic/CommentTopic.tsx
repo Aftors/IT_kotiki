@@ -5,8 +5,10 @@ import Picker from '@emoji-mart/react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { themeSelector } from '../../../../store/slices/theme.slice'
+import { userSelector } from '../../../../store/slices/userSlice/user.slice'
+import * as palette from '../../../../constants/color'
 
-const { Text } = Typography
+const { Text, Paragraph } = Typography
 
 interface IProps {
   author: string
@@ -15,10 +17,7 @@ interface IProps {
   id: string
   reactions: Record<string, Record<string, string | null>[]>
   onReactionSelect: (value: string, id: string) => void
-  onReactionDelete: (
-    value: string,
-    info: Record<string, string | null>[]
-  ) => void
+  onReactionDelete: (id: string) => void
 }
 
 const CommentCard = styled(Card)`
@@ -49,13 +48,71 @@ const CommentInfoText = styled(Text)`
   }
 `
 
-const CommentAvatar = styled(Avatar)`
+const CommentAvatar = styled(Avatar)<{ $isSelected?: boolean }>`
   & {
     background-color: transparent;
-    border: 1px solid #d3f5ff;
+    border: 1px solid
+      ${props => (props.$isSelected ? palette.DEEP_PINK : palette.LIGHT_OCEAN)};
     cursor: pointer;
   }
 `
+
+const UsersListWrapper = styled(Paragraph)`
+  && {
+    color: inherit;
+    font-size: 14px;
+    margin: 4px;
+  }
+`
+
+const UsersList = ({ info }) => (
+  <UsersListWrapper ellipsis={{ rows: 4, expandable: true }}>
+    {info.map(item => (
+      <div key={item.id}>{item.login_user}</div>
+    ))}
+  </UsersListWrapper>
+)
+
+const ExtraBlock = ({ theme, handleEmojiSelect }) => (
+  <Flex gap={16}>
+    <Tooltip title="Добавить реакцию">
+      <Popover
+        trigger="click"
+        placement="topLeft"
+        content={
+          <Picker
+            onEmojiSelect={handleEmojiSelect}
+            locale="ru"
+            theme={theme ? 'light' : 'dark'}
+            navPosition="bottom"
+            previewPosition="none"
+          />
+        }>
+        <SmileOutlined />
+      </Popover>
+    </Tooltip>
+    <Tooltip title="Добавить ответ">
+      <CommentOutlined />
+    </Tooltip>
+  </Flex>
+)
+
+const Reaction = ({ value, info, userId, handleReactionDelete }) => {
+  const userReactionInfo = info.find(item => item.id_user === userId.toString())
+
+  return (
+    <Badge count={info.length} key={value}>
+      <Tooltip title={<UsersList info={info} />}>
+        <CommentAvatar
+          size="small"
+          onClick={() => handleReactionDelete(userReactionInfo?.id)}
+          $isSelected={!!userReactionInfo}>
+          {value}
+        </CommentAvatar>
+      </Tooltip>
+    </Badge>
+  )
+}
 
 const CommentTopic: FC<IProps> = ({
   author,
@@ -67,55 +124,37 @@ const CommentTopic: FC<IProps> = ({
   onReactionDelete,
 }) => {
   const theme = useSelector(themeSelector)
-
-  const ExtraBlock = () => (
-    <Flex gap={16}>
-      <Tooltip title="Добавить реакцию">
-        <Popover
-          trigger="click"
-          placement="topLeft"
-          content={
-            <Picker
-              onEmojiSelect={handleEmojiSelect}
-              locale="ru"
-              theme={theme ? 'light' : 'dark'}
-              navPosition="bottom"
-              previewPosition="none"
-            />
-          }>
-          <SmileOutlined />
-        </Popover>
-      </Tooltip>
-      <Tooltip title="Добавить ответ">
-        <CommentOutlined />
-      </Tooltip>
-    </Flex>
-  )
+  const { id: userId } = useSelector(userSelector)
 
   const handleEmojiSelect = e => {
     onReactionSelect(e.native, id)
   }
 
   return (
-    <CommentCard type="inner" title={content} extra={<ExtraBlock />}>
+    <CommentCard
+      type="inner"
+      title={content}
+      extra={
+        <ExtraBlock theme={theme} handleEmojiSelect={handleEmojiSelect} />
+      }>
       <CommentInfoBlock gap={8}>
         <CommentInfoText>{author}</CommentInfoText>
         <CommentInfoText>
           {time.split('T')[0].split('-').reverse().join('.')}
         </CommentInfoText>
       </CommentInfoBlock>
-      <Flex gap={8}>
+      <Flex gap={12}>
         {Object.entries(reactions)?.map(([value, info]) => (
-          <Badge count={info.length} size="small" key={value}>
-            <CommentAvatar
-              size="small"
-              onClick={() => onReactionDelete(value, info)}>
-              {value}
-            </CommentAvatar>
-          </Badge>
+          <Reaction
+            value={value}
+            info={info}
+            userId={userId}
+            handleReactionDelete={onReactionDelete}
+          />
         ))}
       </Flex>
     </CommentCard>
   )
 }
+
 export default CommentTopic

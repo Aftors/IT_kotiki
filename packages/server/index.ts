@@ -22,7 +22,7 @@ async function startServer() {
       credentials: true,
       origin: [
         `http://localhost:${process.env.CLIENT_PORT}`,
-        'http://84.201.138.96',
+        'https://it-kotiki-36-mf.ya-praktikum.tech/',
       ],
     })
   )

@@ -12,3 +12,13 @@ export const objectSorter = (
     }
   })
 }
+
+export const groupBy = (arr, key) => {
+  return arr.reduce((acc, item) => {
+    if (!acc[item[key]]) {
+      acc[item[key]] = []
+    }
+    acc[item[key]].push(item)
+    return acc
+  }, {})
+}

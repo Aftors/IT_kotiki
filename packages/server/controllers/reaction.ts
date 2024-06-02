@@ -4,7 +4,27 @@ import type { Request, Response } from 'express'
 
 export const addReaction = async (req: Request, res: Response) => {
   try {
-    const reply = await Reaction.create(req.body)
+    let reply
+    const id = req.body.id_comment || req.body.id_reply
+    const reaction = await Reaction.findOne({
+      where: {
+        [Op.or]: [
+          { id_comment: id, id_user: req.body.id_user },
+          { id_reply: id, id_user: req.body.id_user },
+        ],
+      },
+    })
+    if (reaction) {
+      reply = await Reaction.update(
+        { value: req.body.value },
+        {
+          where: { id: reaction.id },
+        }
+      )
+    } else {
+      reply = await Reaction.create(req.body)
+    }
+
     res.status(200).json(reply)
   } catch (error) {
     res.status(400).json({ message: 'Bad request' })

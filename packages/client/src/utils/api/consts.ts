@@ -1,7 +1,7 @@
 import { EPAGE_TYPE } from '../../models/models'
 
 const DEV_BASE_URL = 'http://localhost:3000'
-const PROD_BASE_URL = 'http://84.201.138.96'
+const PROD_BASE_URL = 'https://it-kotiki-36-mf.ya-praktikum.tech'
 
 export const BASE_URL = import.meta.env.DEV ? DEV_BASE_URL : PROD_BASE_URL
 

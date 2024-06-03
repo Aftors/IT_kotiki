@@ -5,7 +5,6 @@ import {
   notificationSelector,
 } from '../../store/slices/notification.slice'
 import { Fragment, useEffect } from 'react'
-import { BACKGROUND } from '../../constants/color'
 
 export const Notification = () => {
   const [api, contextHolder] = notification.useNotification()
@@ -18,7 +17,6 @@ export const Notification = () => {
           message: data.text,
           onClose: () => dispatch(clearNotificationInfo()),
           placement: 'bottom',
-          style: { background: BACKGROUND },
         })
       : null
   }, [isOpen])

@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import { Card, Flex, Tooltip, Typography, Popover, Badge, Avatar } from 'antd'
+import { Card, Flex, Tooltip, Typography, Popover } from 'antd'
 import { SmileOutlined, CommentOutlined } from '@ant-design/icons'
 import Picker from '@emoji-mart/react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { themeSelector } from '../../../../store/slices/theme.slice'
 import { userSelector } from '../../../../store/slices/userSlice/user.slice'
-import * as palette from '../../../../constants/color'
+import { Reaction } from '../Reaction/Reaction'
 
-const { Text, Paragraph } = Typography
+const { Text } = Typography
 
 interface IProps {
   author: string
@@ -48,32 +48,7 @@ const CommentInfoText = styled(Text)`
   }
 `
 
-const CommentAvatar = styled(Avatar)<{ $isSelected?: boolean }>`
-  & {
-    background-color: transparent;
-    border: 1px solid
-      ${props => (props.$isSelected ? palette.DEEP_PINK : palette.LIGHT_OCEAN)};
-    cursor: pointer;
-  }
-`
-
-const UsersListWrapper = styled(Paragraph)`
-  && {
-    color: inherit;
-    font-size: 14px;
-    margin: 4px;
-  }
-`
-
-const UsersList = ({ info }) => (
-  <UsersListWrapper ellipsis={{ rows: 4, expandable: true }}>
-    {info.map(item => (
-      <div key={item.id}>{item.login_user}</div>
-    ))}
-  </UsersListWrapper>
-)
-
-const ExtraBlock = ({ theme, handleEmojiSelect }) => (
+const ExtraBlock = ({ theme, handleReactionSelect }) => (
   <Flex gap={16}>
     <Tooltip title="Добавить реакцию">
       <Popover
@@ -81,7 +56,7 @@ const ExtraBlock = ({ theme, handleEmojiSelect }) => (
         placement="topLeft"
         content={
           <Picker
-            onEmojiSelect={handleEmojiSelect}
+            onEmojiSelect={e => handleReactionSelect(e.native)}
             locale="ru"
             theme={theme ? 'light' : 'dark'}
             navPosition="bottom"
@@ -97,23 +72,6 @@ const ExtraBlock = ({ theme, handleEmojiSelect }) => (
   </Flex>
 )
 
-const Reaction = ({ value, info, userId, handleReactionDelete }) => {
-  const userReactionInfo = info.find(item => item.id_user === userId.toString())
-
-  return (
-    <Badge count={info.length} key={value}>
-      <Tooltip title={<UsersList info={info} />}>
-        <CommentAvatar
-          size="small"
-          onClick={() => handleReactionDelete(userReactionInfo?.id)}
-          $isSelected={!!userReactionInfo}>
-          {value}
-        </CommentAvatar>
-      </Tooltip>
-    </Badge>
-  )
-}
-
 const CommentTopic: FC<IProps> = ({
   author,
   content,
@@ -126,8 +84,8 @@ const CommentTopic: FC<IProps> = ({
   const theme = useSelector(themeSelector)
   const { id: userId } = useSelector(userSelector)
 
-  const handleEmojiSelect = e => {
-    onReactionSelect(e.native, id)
+  const handleReactionSelect = (value: string) => {
+    onReactionSelect(value, id)
   }
 
   return (
@@ -135,7 +93,7 @@ const CommentTopic: FC<IProps> = ({
       type="inner"
       title={content}
       extra={
-        <ExtraBlock theme={theme} handleEmojiSelect={handleEmojiSelect} />
+        <ExtraBlock theme={theme} handleReactionSelect={handleReactionSelect} />
       }>
       <CommentInfoBlock gap={8}>
         <CommentInfoText>{author}</CommentInfoText>
@@ -146,10 +104,12 @@ const CommentTopic: FC<IProps> = ({
       <Flex gap={12}>
         {Object.entries(reactions)?.map(([value, info]) => (
           <Reaction
+            key={value}
             value={value}
             info={info}
             userId={userId}
             handleReactionDelete={onReactionDelete}
+            handleReactionSelect={handleReactionSelect}
           />
         ))}
       </Flex>

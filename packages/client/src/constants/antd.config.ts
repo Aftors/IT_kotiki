@@ -73,6 +73,10 @@ export const ANTD_CONFIG_BLACK = {
       indicatorHeight: 14,
       colorBgContainer: 'white',
     },
+
+    Notification: {
+      colorBgElevated: BACKGROUND,
+    },
   },
 }
 
